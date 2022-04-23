@@ -1,7 +1,4 @@
-
-
 import "package:flutter/material.dart";
-
 
 void main() => runApp(MyApp());
 
@@ -20,13 +17,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // text fields
   final titleController = TextEditingController();
-  var payRateVal = "Pay rate";
   final titleController2 = TextEditingController();
-  var hoursVal = "Hours";
   final titleController3 = TextEditingController();
-  var otRate = "Over Time Rate";
   final titleController4 = TextEditingController();
+
+
+  //variables
+  var payRateVal = "Pay rate";
+  var hoursVal = "Hours";
+  var otRate = "Over Time Rate";
   var otHours = "Over Time Hours";
 
 
@@ -43,6 +44,16 @@ class _HomeState extends State<Home> {
     setState(() {
       otHours = titleController4.text;
     });
+
+    //convert str to double
+    var payRateD = double.parse(payRateVal);
+    var hoursValD = double.parse(hoursVal);
+    var otRateD = double.parse(otRate);
+    var otHoursD = double.parse(otHours);
+    //calculation output var
+    var regPayD = hoursValD*payRateD;
+    var otPayD =otHoursD*otRateD;
+    var totPayD = regPayD + otPayD;
   }
 
 
@@ -51,7 +62,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text('SYM'),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.lightBlue,
       ),
 
 
@@ -86,9 +97,6 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-
-
-
           SizedBox(
             height: 8,
           ),
@@ -100,15 +108,19 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 20,
           ),
-          Text(payRateVal),
-          Text(hoursVal),
-          Text(otRate),
-          Text(otHours),
+
+          // compute pay
+
+          // display converted pay in app
+          // Text(regPayD.toString()),
+          // Text(otPay.toString()),
+          // Text(totPayD.toString()),
         ],
       ),
     );
   }
 }
+
 
 
 
