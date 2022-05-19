@@ -51,8 +51,8 @@ class _HomeState extends State<Home> {
     var otRateD = double.parse(otRate);
     var otHoursD = double.parse(otHours);
     //calculation output var
-    var regPayD = hoursValD*payRateD;
-    var otPayD =otHoursD*otRateD;
+    var regPayD = hoursValD * payRateD;
+    var otPayD = otHoursD * otRateD;
     var totPayD = regPayD + otPayD;
   }
 
@@ -64,8 +64,6 @@ class _HomeState extends State<Home> {
         title: Text('SYM'),
         backgroundColor: Colors.lightBlue,
       ),
-
-
       body: Column(
         children: [
           Padding(
@@ -100,21 +98,25 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 8,
           ),
-          RaisedButton(
+
+          ElevatedButton(
             onPressed: _setText,
             child: Text('Submit'),
-            elevation: 8,
           ),
           SizedBox(
             height: 20,
           ),
 
-          // compute pay
-
           // display converted pay in app
-          // Text(regPayD.toString()),
-          // Text(otPay.toString()),
-          // Text(totPayD.toString()),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: RichText(
+              text: TextSpan(
+                text: regPayD.toString(),
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+          ),
         ],
       ),
     );
