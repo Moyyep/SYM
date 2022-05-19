@@ -45,15 +45,19 @@ class _HomeState extends State<Home> {
       otHours = titleController4.text;
     });
 
-    //convert str to double
+    // Convert str to double
     var payRateD = double.parse(payRateVal);
     var hoursValD = double.parse(hoursVal);
     var otRateD = double.parse(otRate);
     var otHoursD = double.parse(otHours);
-    //calculation output var
+    // Calculation output var
     var regPayD = hoursValD * payRateD;
     var otPayD = otHoursD * otRateD;
     var totPayD = regPayD + otPayD;
+    // Convert to string for display
+    String regPayS = regPayD.toString();
+    String otPayS = otPayD.toString();
+    String totPayS = totPayD.toString();
   }
 
 
@@ -112,7 +116,7 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.all(15),
             child: RichText(
               text: TextSpan(
-                text: regPayD.toString(),
+                text: otHours.toString(),
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
             ),
