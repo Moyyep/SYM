@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:syncfusion_flutter_charts/charts.dart";
+import 'package:flutter/physics.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -50,16 +53,20 @@ class _HomeState extends State<Home> {
     var hoursValD = double.parse(hoursVal);
     var otRateD = double.parse(otRate);
     var otHoursD = double.parse(otHours);
+
     // Calculation output var
     var regPayD = hoursValD * payRateD;
+    print(regPayD);
     var otPayD = otHoursD * otRateD;
+    print(otPayD);
     var totPayD = regPayD + otPayD;
+    print(totPayD);
+
     // Convert to string for display
     String regPayS = regPayD.toString();
     String otPayS = otPayD.toString();
     String totPayS = totPayD.toString();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,19 +111,25 @@ class _HomeState extends State<Home> {
           ),
 
           ElevatedButton(
-            onPressed: _setText,
-            child: Text('Submit'),
+            child:  Text('Ready'),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => _ChartApp()),
+              );
+            }
           ),
           SizedBox(
             height: 20,
           ),
+
 
           // display converted pay in app
           Padding(
             padding: const EdgeInsets.all(15),
             child: RichText(
               text: TextSpan(
-                text: otHours.toString(),
+                text: otHours,
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
             ),
@@ -131,7 +144,67 @@ class _HomeState extends State<Home> {
 
 
 
+class _ChartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: _MyHomePage(),
+    );
+  }
+}
 
+class _MyHomePage extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
+  _MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<_MyHomePage> {
+  late List<_ChartData> data;
+  late TooltipBehavior _tooltip;
+
+  @override
+  void initState() {
+    data = [
+      _ChartData('CHN', 12),
+      _ChartData('GER', 15),
+      _ChartData('RUS', 30),
+      _ChartData('BRZ', 6.4),
+      _ChartData('IND', 14)
+    ];
+    _tooltip = TooltipBehavior(enable: true);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Syncfusion Flutter chart'),
+        ),
+        body: SfCartesianChart(
+            primaryXAxis: CategoryAxis(),
+            primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
+            tooltipBehavior: _tooltip,
+            series: <ChartSeries<_ChartData, String>>[
+              DoughnutSeries<_ChartData, String>(
+                  dataSource: data,
+                  xValueMapper: (_ChartData data, _) => data.x,
+                  yValueMapper: (_ChartData data, _) => data.y,
+                  name: 'Gold',
+                  color: Color.fromRGBO(8, 142, 255, 1))
+            ]));
+  }
+}
+
+class _ChartData {
+  _ChartData(this.x, this.y);
+  final String x;
+  final double y;
+}
 
 
 
