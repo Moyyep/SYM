@@ -125,15 +125,15 @@ class _HomeState extends State<Home> {
 
 
           // display converted pay in app
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: RichText(
-              text: TextSpan(
-                text: otHours,
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(15),
+          //   child: RichText(
+          //     text: TextSpan(
+          //       text: otHours,
+          //       style: TextStyle(color: Colors.black, fontSize: 20),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
